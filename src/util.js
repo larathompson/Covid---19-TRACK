@@ -10,14 +10,14 @@ const casesTypeColors = {
   },
   recovered: {
     hex: "#7dd71d",
-    
-   
+
+
     multiplier: 1200,
   },
   deaths: {
     hex: "#fb4443",
-    
-    
+
+
     multiplier: 2000,
   },
 }
@@ -38,23 +38,30 @@ export const sortData = (data) => {
 }
 
 //draw circules on map with interactive tooltips
-export const showDataOnMap = (data, casesType="cases") => (
+export const showDataOnMap = (data, casesType = "cases") => (
   data.map(country => (
-<Circle 
-center = {[country.countryInfo.lat, country.countryInfo.long]}
-fillOpactiy={0.4}
-fillColor={casesTypeColors[casesType].hex}
-// this changes circule around country to represent number of cases
-radius={
-  Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
-}
+    <Circle
+      center={[country.countryInfo.lat, country.countryInfo.long]}
+      fillOpactiy={0.4}
+      fillColor={casesTypeColors[casesType].hex}
+      // this changes circule around country to represent number of cases
+      radius={
+        Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
+      }
 
->
-  <Popup>
-    
-  </Popup>
+    >
+      <Popup>
+        <div>
+          <div style={{ backgroundImage: `url(${country.countryInfo.flag})` }} ></div>
+          <div> {country.country}</div>
+          <div> Cases: {numeral(country.cases).format("0,0")}</div>
+          <div> Recovered: {numeral(country.recovered).format("0,0")}</div>
+          <div> Deaths: {numeral(country.deaths).format("0,0")}</div>
+        </div>
 
-</Circle>
+      </Popup>
+
+    </Circle>
   ))
 )
-  
+
