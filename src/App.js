@@ -24,6 +24,9 @@ function App() {
   const [country, setCountry] = useState('worldwide')
   const [countryInfo, setCountryInfo] = useState({})
   const [tableData, setTableData] = useState([])
+  const [mapCenter,setMapCenter]  = useState({ lat: 34.80745, lng: -40.4796 })
+  const [mapZoom, setMapZoom] = useState(3)
+  const [mapCountries, setMapCountries] = useState([])
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -49,6 +52,8 @@ function App() {
           ))
           const sortedData = sortData(data)
           setTableData(sortedData)
+          //this is all the info on countries
+          setMapCountries(data)
           setCountries(countries)
 
         })
@@ -72,9 +77,12 @@ function App() {
       .then(data => {
         setCountry(countryCode)
         setCountryInfo(data)
+//this will move the map to the selected country
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long])
+        //this works in conjunction with a zoom out
+        setMapZoom(4)
       })
-    //https://disease.sh/v3/covid-19/all
-    //https://disease.sh/v3/covid-19/countries/[COUNTRY_CODE]
+   
   }
   console.log(countryInfo)
 
@@ -108,7 +116,9 @@ function App() {
           <InfoBox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
         </div>
 
-        <Map></Map>
+        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom}>
+          
+        </Map>
       </div>
 
       <Card className="app__right">

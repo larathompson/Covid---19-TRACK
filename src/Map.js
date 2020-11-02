@@ -4,10 +4,10 @@ import { Map as LeafletMap, TileLayer } from "react-leaflet"
 
 
 
-function Map() {
+function Map({countries, center, zoom}) {
   return (
     <div className="map">
-      <LeafletMap >
+      <LeafletMap center={center} zoom={zoom} >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -19,8 +19,7 @@ function Map() {
 }
 
 export default Map
-// export default Tilelayer
-// expo
+
 
 
 
