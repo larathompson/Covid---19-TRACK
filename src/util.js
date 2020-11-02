@@ -37,6 +37,11 @@ export const sortData = (data) => {
   return sortedData
 }
 
+//this function shows the change in cases each day and shows 0 if no change
+export const prettyPrintStat = (stat) => 
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0"
+
+
 //draw circules on map with interactive tooltips
 export const showDataOnMap = (data, casesType = "cases") => (
   data.map(country => (

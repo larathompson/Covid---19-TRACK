@@ -13,9 +13,10 @@ import Map from './Map'
 
 import Table from './Table'
 import './Table.css'
-import { sortData } from './util'
+import { sortData, prettyPrintStat } from './util'
 import LineGraph from './LineGraph'
 import "leaflet/dist/leaflet.css"
+
 
 
 function App() {
@@ -111,9 +112,9 @@ function App() {
         </div>
 
         <div className="app__stats">
-          <InfoBox title="Coronavirus cases" cases={countryInfo.todayCases} total={countryInfo.cases}></InfoBox>
-          <InfoBox title="Recovered" cases={countryInfo.todayRecovered} total={countryInfo.recovered}></InfoBox>
-          <InfoBox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
+          <InfoBox title="Coronavirus cases" cases={prettyPrintStat(countryInfo.todayCases)} total={countryInfo.cases}></InfoBox>
+          <InfoBox title="Recovered" cases={prettyPrintStat(countryInfo.todayRecovered)} total={countryInfo.recovered}></InfoBox>
+          <InfoBox title="Deaths" cases={prettyPrintStat(countryInfo.todayDeaths)} total={countryInfo.deaths}></InfoBox>
         </div>
 
         <Map countries={mapCountries} center={mapCenter} zoom={mapZoom}>
